@@ -1,0 +1,73 @@
+    html {
+        margin: 0px;
+        height: 100%;
+    }
+    body { 
+      font-family: 'Lato', sans-serif;
+      height: 100%;
+    }
+
+    p {
+      font-size: 18px;
+    }
+    h1 {
+      font-weight: bold;
+    }
+    #map {
+        padding: 0px;
+        height: 500px;
+    }
+    .date {
+      color: #CCC;
+    }
+    .map-card {
+      margin: 15px 0 15px 0;
+      background-color: #F7F7F7;
+      padding: 1px 10px 5px 10px;
+      cursor: pointer;
+    }
+    .card a {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .name {
+      color: #ed4227;
+      font-family: 'Lato', sans-serif;
+    }
+    .button {
+      background-color: #ed4227;
+      color: #FFF !important;
+      margin: 5px 5px 5px 0; 
+    }
+    .number {
+      color: #9E9E9E;
+      font-family: 'Lato', sans-serif;
+    }
+    .selected {
+      background-color: #CCC;
+    }
+    .headline {
+      margin-top: 70px;
+    }
+    #div-gpt-ad-785317941620082696-1 {
+        padding: 10px;
+        margin: 80px auto;
+        width: 62%;
+
+        }
+    @media (max-width: 990px) {
+      #map {
+        height: 300px;
+      }
+      #div-gpt-ad-785317941620082696-1 {
+        padding: 10px;
+        margin: 80px 0 0 0;
+        width: 100%;
+      } 
+    }
+    @media (max-width: 767px) {
+      #div-gpt-ad-785317941620082696-1 {
+        display: none;
+      }
+    }

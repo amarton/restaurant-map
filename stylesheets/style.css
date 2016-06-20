@@ -1,0 +1,111 @@
+/* Generic fix */
+
+html {
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+
+
+/* Ad */
+
+#leaderboard {
+  height: 90px;
+  width: 728px;
+  background-color: #222222;
+  margin: 20px auto;
+  text-align: center; }
+  @media (max-width: 730px) {
+    #leaderboard {
+      display: none; } }
+
+
+#cube {
+  height: 250px;
+  width: 300px;
+  background-color: #222222;
+  margin: 20px auto;
+  text-align: center; }
+  @media (max-width: 300px) {
+    #leaderboard {
+      display: none; } }
+
+#smallad {
+  height: 50px;
+  width: 320px;
+  background-color: #222222;
+  margin: 20px auto;
+  text-align: center; }
+  @media (max-width: 320px) {
+    #leaderboard {
+      display: none; } }
+
+
+
+/* Tophat */
+
+#tophat {
+  height: 40px;
+  background-color: #F0F0F0;
+  overflow: hidden; }
+
+#logo {
+  width: 250px;
+  height: 100%;
+  float: left;
+  line-height: 43px;
+  vertical-align: middle; }
+  #logo img {
+    margin: 0 10px;
+    width: 90%; }
+  @media (max-width: 400px) {
+    #logo {
+      width: 200px; } }
+
+.tophat-share-tools {
+  float: right;
+  height: 100%;
+  line-height: 35px;
+  font-size: 24px;
+  vertical-align: middle;
+  color: #333333;
+  margin: 0 10px;
+  text-align: center; }
+  .tophat-share-tools span {
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 8px; }
+    .tophat-share-tools span:hover {
+      color: #962D3E; } /* Accent color */
+  @media (max-width: 760px) {
+    .tophat-share-tools {
+      font-size: 18px; } }
+
+
+
+
+/* Body */
+
+.container {
+padding-top:50px;
+}
+
+
+
+
+
+/* Clearfix */
+
+.group:after {
+  visibility: hidden;
+  display: block;
+  content: "";
+  clear: both;
+  height: 0; }
+
+* html .group {
+  zoom: 1; }
+
+*:first-child + html .group {
+  zoom: 1; }
