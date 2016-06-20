@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Restaurant Map</title>
+  <meta name="description" content="">
+  <meta name="author" content="The Baltimore Sun">
+
+      <!-- Mobile Specific Metas
+      ================================================== -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+
+      <!--[if lt IE 9]>
+      <script src="html5shiv.js"></script>
+      <![endif]-->
+
+  <!-- Facebook OpenGraph -->
+  <meta property="og:title" content="Restaurant Map">
+  <meta property="og:url" content="http://data.baltimoresun.com/features/restaurant-map/">
+  <meta property="og:image" content="">
+  <meta property="og:site_name" content="The Baltimore Sun">
+  <meta property="og:description" content="">
+  <meta property="fb:app_id" content="310302989040998">
+      <!-- /Facebook -->
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@baltimoresun">
+  <meta name="twitter:creator" content="">
+  <meta name="twitter:title" content="Restaurant Map">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+  <meta name="twitter:domain" content="baltimoresun.com">
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="stylesheets/fonts.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/app.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="scripts/tabletop.js"></script>
+  <script language="javascript" src="scripts/javascript.js"> </script>
+</head>
+<body>
+<!-- Start: GPT Async -->
+<script type='text/javascript'>
+  var gptadslots=[];
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+  (function(){ var gads = document.createElement('script');
+  gads.async = true; gads.type = 'text/javascript';
+  var useSSL = 'https:' == document.location.protocol;
+  gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+  var node = document.getElementsByTagName('script')[0];
+  node.parentNode.insertBefore(gads, node);
+  })();
+  </script>
+
+  <script type="text/javascript">
+  googletag.cmd.push(function() {
+
+  //Adslot 1 declaration
+  gptadslots[1]= googletag.defineSlot('/4011/trb.baltimoresun/news', [[728,90]],'div-gpt-ad-785317941620082696-1').setTargeting('pos',['1']).addService(googletag.pubads());
+
+  googletag.pubads().setTargeting('ptype',['s']);
+  googletag.pubads().enableAsyncRendering();
+  googletag.enableServices();
+  });
+</script>
+
+
+
+<script src="http://www.baltimoresun.com/thirdpartyservice?disablessor=true" async></script>  
+
+<div data-trb-thirdpartynav></div>
+<div class="container-fluid">
+  <h1 class="headline">Extremely Hot Restaurants</h1>
+  <small class="date">May 25, 2016</small>
+  <p class="chatter">Check out these very hot and happening restaurants in Baltimore. Eat at them, they're probably pretty good. Or don't, that's cool too.</p>
+  <div id="map"></div>
+  <div class="row" id="nav1"></div>
+  <div class="row" id="nav2"></div>
+  <div class="row" id="nav3"></div>
+    <!-- Beginning Async AdSlot 1 for Ad unit trb.baltimoresun/news  ### size: [[728,90]] -->
+    <!-- Adslot's refresh function: googletag.pubads().refresh([gptadslots[1]]) -->
+    <div id='div-gpt-ad-785317941620082696-1'>
+    <script type='text/javascript'>
+    googletag.cmd.push(function() { googletag.display('div-gpt-ad-785317941620082696-1'); });
+    </script>
+    </div>
+
+</div>
+
+
+
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    init();
+  });
+    
+  // Set view of Leaflet map
+  var osmUrl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
+      osmAttribution = '© OpenStreetMap Contributors',
+      osmLayer = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
+          
+  var map = new L.Map('map').setView([39.282004, -76.607500], 11);
+  map.addLayer(osmLayer);
+  map.scrollWheelZoom.disable();
+
+
+  //Tabletop feed
+  var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1KymTiT91J32xSW1h6dP5XyiDrGIKkkNG-70tFU3k6qc/pubhtml';
+
+
+  //scroll to id function
+  $.fn.pageScroll = function() {
+      return this.each(function () {
+          $('html, body').animate({
+              scrollTop: $(this).offset().top
+          }, 1000);
+      });
+    };
+
+  // Pull data from Google spreadsheet
+  // And push to our startUpLeaflet function
+  function init(data, tabletop){
+  	Tabletop.init({
+      	key: public_spreadsheet_url,
+      	callback: startUpLeafet,
+      	simpleSheet: true,
+      	debug: false
+      });
+  }
+
+  // This function gets our data from our spreadsheet
+  // Then gets it ready for Leaflet.
+  // It creates the marker, sets location
+  // And plots on it on our map
+  var forkIcon = L.icon({
+    iconUrl: 'images/marker.png',
+
+    iconSize:     [35, 51], // size of the icon
+    iconAnchor:   [20, 52], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -50] // point from which the popup should open relative to the iconAnchor
+  });
+
+  var markers = [];
+
+  function startUpLeafet(tabletopData) {
+  	// Tabletop creates arrays out of our data
+  	// We'll loop through them and create markers for each
+    for (var num = 0; num < tabletopData.length; num ++) {
+      // Our table columns
+      var name = tabletopData[num].name;
+      var number = tabletopData[num].number;
+      var latitude = tabletopData[num].lat;
+      var longitude = tabletopData[num].long;
+      var description = tabletopData[num].description;
+      var address = tabletopData[num].address;
+      var website = tabletopData[num].website;
+      var phone = tabletopData[num].phone;
+      var review = tabletopData[num].review;
+      var neighborhood = tabletopData[num].neighborhood;
+      var price = tabletopData[num].price;
+      var image = tabletopData[num].image;
+      var type = tabletopData[num].type;
+
+      // Add marker & give it an id
+      markers[number] = L.marker([latitude, longitude], {icon: forkIcon}).addTo(map);
+      markers[number].bindPopup("<div id=" + number + " class='popup_box_header'><strong><span class='number'> "+number+" </span><span>" +name+ "</span></strong></div>");
+      markers[number]._icon.id = number;
+
+
+      if (number < 5) {
+        $("#nav1").append("<div class='col-md-3 card'><a onClick=\"$('#map').pageScroll();map.panTo(new L.LatLng("+latitude+","+longitude+"));markers["+number+"].openPopup();$('.map-card').removeClass('selected');$('#card"+number+"').addClass('selected');\"><div class='map-card' id='card"+number+"'><h3><span class='number'> "+number+" </span><span class='name'> "+name+" </span></h3><b class='neighborhood'>"+neighborhood+"</b><div class='info'>"+price+" | "+type+"</div><p>"+description+"</p><img src='"+image+"' width=100% height=auto /><p>"+phone+"</p><p>"+address+"</p><a class='btn button' href='"+website+"'>WEBSITE</a><a class='btn button' href='"+review+"'>REVIEW</a></div></a></div>");
+      }
+      else if (number < 9) {
+        $("#nav2").append("<div class='col-md-3 card'><a onClick=\"$('#map').pageScroll();map.panTo(new L.LatLng("+latitude+","+longitude+"));markers["+number+"].openPopup();$('.map-card').removeClass('selected');$('#card"+number+"').addClass('selected');\"><div class='map-card' id='card"+number+"'><h3><span class='number'> "+number+" </span><span class='name'> "+name+" </span></h3><b class='neighborhood'>"+neighborhood+"</b><div class='info'>"+price+" | "+type+"</div><p>"+description+"</p><img src='"+image+"' width=100% height=auto /><p>"+phone+"</p><p>"+address+"</p><a class='btn button' href='"+website+"'>WEBSITE</a><a class='btn button' href='"+review+"'>REVIEW</a></div></a></div>");
+      }
+
+      else {
+        $("#nav3").append("<div class='col-md-3 card'><a onClick=\"$('#map').pageScroll();map.panTo(new L.LatLng("+latitude+","+longitude+"));markers["+number+"].openPopup();$('.map-card').removeClass('selected');$('#card"+number+"').addClass('selected');\"><div class='map-card' id='card"+number+"'><h3><span class='number'> "+number+" </span><span class='name'> "+name+" </span></h3><b class='neighborhood'>"+neighborhood+"</b><div class='info'>"+price+" | "+type+"</div><p>"+description+"</p><img src='"+image+"' width=100% height=auto /><p>"+phone+"</p><p>"+address+"</p><a class='btn button' href='"+website+"'>WEBSITE</a><a class='btn button' href='"+review+"'>REVIEW</a></div></a></div>");
+      }
+    
+    }
+    $('.leaflet-marker-icon').on('click', function(e) {
+      // Use the event to find the clicked element
+      var el = $(e.srcElement || e.target),
+        id = el.attr('id');
+          $(".card").removeClass("selected");
+          $("#card"+id).addClass("selected");
+          $("#card"+id).pageScroll();
+    });
+
+
+  };
+</script>
+</body>
+</html>
